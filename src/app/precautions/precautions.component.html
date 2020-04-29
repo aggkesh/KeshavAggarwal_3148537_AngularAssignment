@@ -1,0 +1,12 @@
+<div style="overflow-x:auto;">
+    <table id="customers">
+      <tr>
+        <th>SNO</th>
+        <th>Precautions</th>
+      </tr>
+      <tr *ngFor="let precaution of precautionList">
+        <td>{{ precaution.id }}.</td>
+        <td>{{ precaution.description }}</td>
+      </tr>
+    </table> 
+  </div>

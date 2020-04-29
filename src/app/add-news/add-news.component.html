@@ -1,0 +1,24 @@
+<div class="container" style="border-style: outset; padding-left: 2%;padding-right: 2%;padding-bottom: 2%;">
+  <h2 style="padding-bottom: 2%; font-weight: bold;">Add News</h2>
+  <form [formGroup]="newsDetailsForm" (ngSubmit)="_addNews(newsDetailsForm.value)">
+    <div class="form-group">
+      <input type="text" class="form-control" formControlName="title" placeholder="Title" name="title" style="height:50px;">
+      <div *ngFor="let validation of news_validation_messages.title">
+        <span *ngIf="newsDetailsForm.get('title').hasError(validation.type) && (newsDetailsForm.get('title').dirty || newsDetailsForm.get('title').touched)">{{validation.message}}</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" formControlName="description" placeholder="What's this news about?" name="description" style="height:50px;">
+      <div *ngFor="let validation of news_validation_messages.description">
+        <span *ngIf="newsDetailsForm.get('description').hasError(validation.type) && (newsDetailsForm.get('description').dirty || newsDetailsForm.get('description').touched)">{{validation.message}}</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <textarea type="text" class="form-control" formControlName="summary" placeholder="Write your news (in markdown)" name="summary" style="height:170px;"></textarea>
+      <div *ngFor="let validation of news_validation_messages.summary">
+        <span *ngIf="newsDetailsForm.get('summary').hasError(validation.type) && (newsDetailsForm.get('summary').dirty || newsDetailsForm.get('summary').touched)">{{validation.message}}</span>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-default" value="Log In" [disabled]="!newsDetailsForm.valid" style="float:right;background-color:green;color:white;width:150px;height:40px;font-size:15px;">Publish News</button>
+  </form>
+</div>

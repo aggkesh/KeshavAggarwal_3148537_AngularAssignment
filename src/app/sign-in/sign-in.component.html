@@ -1,0 +1,21 @@
+<div class="container" style="border-style: outset; padding: 3%;">
+    <h1 style="padding-bottom: 3%; font-weight: bold;">Sign In</h1>
+    <p style="color:red">{{errors}}</p>
+    <form [formGroup]="loginFormGroup" (ngSubmit)="_loginIn(loginFormGroup.value)">
+      <div class="form-group" style="padding-bottom: 2%;">
+        <label for="email" style="font-size: 15px;font-weight: bold;">Email:</label>
+        <input type="email" class="form-control" formControlName="email" placeholder="Enter email" name="email">
+        <div *ngFor="let validation of account_validation_messages.email">
+          <span *ngIf="loginFormGroup.get('email').hasError(validation.type) && (loginFormGroup.get('email').dirty || loginFormGroup.get('email').touched)">{{validation.message}}</span>
+        </div>
+      </div>
+      <div class="form-group" style="padding-bottom: 2%;">
+        <label for="pwd" style="font-size: 15px;font-weight: bold;">Password:</label>
+        <input type="password" class="form-control" formControlName="password" placeholder="Enter password" name="password">
+        <div *ngFor="let validation of account_validation_messages.password">
+          <span *ngIf="loginFormGroup.get('password').hasError(validation.type) && (loginFormGroup.get('password').dirty || loginFormGroup.get('password').touched)">{{validation.message}}</span>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-default" value="Log In" [disabled]="!loginFormGroup.valid" style="background-color:green;color:white;width:150px;height:40px;font-size:15px;">Submit</button>
+    </form>
+  </div>

@@ -1,0 +1,17 @@
+<app-banner></app-banner>
+  
+<div>
+  <div class="row">
+    <div class="col-lg-10">
+      <ul id="navlist">
+        <li class="navelement"><a (click)="_moveToPage('dashboard')">Dashboard</a></li>
+        <li class="navelement"><a (click)="_moveToPage('latestnews')">Latest News</a></li>
+        <li class="navelement"><a (click)="_moveToPage('precautions')">Precautions</a></li>
+      </ul>
+      <hr style="margin:0;width:75%; float: left;">
+    </div>
+  </div>
+</div>
+  
+<!--The content below is only a placeholder and can be replaced.-->
+<router-outlet></router-outlet>

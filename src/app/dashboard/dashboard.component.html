@@ -1,0 +1,26 @@
+<div style="overflow-x:auto;">
+  <table id="customers">
+    <tr>
+      <th>SNO</th>
+      <th>State</th>
+      <th>Total Cases</th>
+      <th>Active Cases</th>
+      <th>Deaths</th>
+      <th>Recovered</th>
+    </tr>
+    <tr *ngFor="let covidStateDetail of covidStateDetailList;let indexOfElement=index">
+      <ng-template [ngIf]="indexOfElement <= 0" [ngIfElse]="greater">
+        <td></td>
+        <td>{{ covidStateDetail.state }}</td>
+      </ng-template>
+      <ng-template #greater>
+        <td>{{ indexOfElement }}.</td>
+        <td><a (click)="_getCovidDistrictWiseData(covidStateDetail.state)">{{ covidStateDetail.state }}</a></td>
+      </ng-template>
+      <td>{{ covidStateDetail.confirmed }}</td>
+      <td>{{ covidStateDetail.active }}</td>
+      <td>{{ covidStateDetail.deaths }}</td>
+      <td>{{ covidStateDetail.recovered }}</td>
+    </tr>
+  </table> 
+</div>

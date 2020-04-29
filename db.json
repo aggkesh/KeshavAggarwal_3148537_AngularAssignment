@@ -1,8 +1,0 @@
-{
-    "news": [
-    {  "id":  1, "title": "News1", "description": "Insurance policy number PO1" },
-    {  "id":  2, "title": "News2", "description": "Insurance policy number PO2" },
-    {  "id":  3, "title": "News3", "description": "Insurance policy number PO3" },
-    {  "id":  4, "title": "News4", "description": "Insurance policy number PO4" }
-   ]
-}
