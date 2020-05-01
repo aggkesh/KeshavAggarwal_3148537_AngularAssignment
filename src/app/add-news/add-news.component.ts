@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NewsService } from '../api/news-service/news.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { News } from '../model/news';
 
 @Component({
   selector: 'app-add-news',
@@ -20,15 +21,17 @@ export class AddNewsComponent implements OnInit {
     this.newsDetailsForm = new FormGroup({
         title: new FormControl("", Validators.required),
         description: new FormControl("", Validators.required),
-        summary: new FormControl("", Validators.required)
+        summary: new FormControl("", Validators.required),
+        image: new FormControl('', Validators.required)
      });
      this.errors = [];
   }
 
-  _addNews(data) {
+  _addNews(data: News) {
     this.newsService.createNews(data).subscribe((newsData:any) => {
       this.router.navigate([''], {relativeTo: this.route});
     },errors => {
+      console.log(errors);
       if(errors.status == 404){
         this.errors.push("Page Not Found");
       }
@@ -52,6 +55,19 @@ export class AddNewsComponent implements OnInit {
         }
       }
     });
+  }
+
+  handleFileInput(files: FileList) {
+    var file:File = files.item(0);
+    var myReader:FileReader = new FileReader();
+
+    myReader.readAsDataURL(file);
+
+    myReader.onloadend = (e) => {
+      this.newsDetailsForm.patchValue({
+        image: myReader.result as string
+      });
+    }
   }
 
   news_validation_messages = {

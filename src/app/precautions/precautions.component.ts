@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class PrecautionsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();  
-  precautionList: Precaution[] = [];
+  precautionList: Array<Precaution>;
 
   constructor(private precautionService: PrecautionService) {}
 
@@ -24,7 +24,7 @@ export class PrecautionsComponent implements OnInit, OnDestroy {
   }
 
   private addSubscription(subscription: Subscription, precautionService: PrecautionService): void {
-    subscription.add(precautionService.getAllPrecautions().subscribe((precautionList : Precaution[]) => {
+    subscription.add(precautionService.getAllPrecautions().subscribe((precautionList : Array<Precaution>) => {
       this.precautionList = precautionList;
     }));
   }

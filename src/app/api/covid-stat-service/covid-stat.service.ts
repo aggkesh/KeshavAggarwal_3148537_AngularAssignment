@@ -8,10 +8,6 @@ interface ICovidStateWiseStat {
   statewise: Array<CovidStateDetail>
 }
 
-interface ICovidDistrictWiseStat {
-  statewise: Array<CovidDistrictDetail>
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -30,8 +26,15 @@ export class CovidStatService {
     return this.httpClient.get(this.SERVER_DISTRICT_URL).pipe(map(response => {
       if(response.hasOwnProperty(stateName)) {
         var stateDetail = response[stateName];
-        if(stateDetail.hasOwnProperty('districtData')){
-            return stateDetail['districtData'];
+        if(stateDetail.hasOwnProperty('districtData')) {
+          var covidDistrictDetailArray: Array<CovidDistrictDetail> = new Array<CovidDistrictDetail>();
+          var obj = stateDetail['districtData'];
+          for(var key in obj) {
+            var covidDistrictDetail:CovidDistrictDetail = obj[key];
+            covidDistrictDetail.district = key;
+            covidDistrictDetailArray.push(covidDistrictDetail);
+          }
+          return covidDistrictDetailArray;
         }
       }
     }));

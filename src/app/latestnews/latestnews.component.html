@@ -1,14 +1,20 @@
-<div *ngFor="let news of newsList" class="card">
-  <div class="row">
-    <div class="col-lg-2">
-      <img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="Avatar" style="width:100%">
-    </div>
-    <div class="col-lg-10">
-      <p style="font-size:24px; font-weight: bold;">{{news.title}}</p>
-      <p style="color: grey; font-size: 14px;">
-        {{news.description}} 
-        <a style="color: green" (click)="_more(news.id)">more...</a>
-      </p>
-    </div>
-  </div>
+<div style="overflow-x:auto;">
+  <table id="latestnews">
+    <tr>
+      <th>SNO</th>
+      <th>News Image</th>
+      <th>Description</th>
+    </tr>
+    <tr *ngFor="let news of newsList">
+      <td style="width: 1%;">{{ news.id }}.</td>
+      <td style="height: 25%;width: 25%;text-align: center;"><img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="News Image"></td>
+      <td>
+        <p style="font-size:24px; font-weight: bold;">{{news.title}}</p>
+        <p style="color: grey; font-size: 14px;">
+          {{news.description}} 
+          <a style="color: green" (click)="_more(news.id)">more...</a>
+        </p>
+      </td>
+    </tr>
+  </table> 
 </div>

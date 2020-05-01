@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { CovidStateDetail } from 'src/app/model/covidstatedetail';
 
 @Injectable({
   providedIn: 'root'

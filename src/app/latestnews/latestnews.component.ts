@@ -4,6 +4,7 @@ import { NewsService } from '../api/news-service/news.service';
 import { Subscription } from 'rxjs';
 import { CommunicationService } from '../api/communication-service/communication.service';
 
+
 @Component({
   selector: 'app-latestnews',
   templateUrl: './latestnews.component.html',
