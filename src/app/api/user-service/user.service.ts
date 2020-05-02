@@ -8,7 +8,7 @@ import { Observable, Subject, Observer } from 'rxjs';
 })
 export class UserService {
 
-  private SERVER_URL: string = "http://localhost:4200/api/";
+  private SERVER_URL: string = "http://localhost:4200/api/users";
   
   constructor(private httpClient: HttpClient) {}
 
@@ -16,7 +16,7 @@ export class UserService {
 
     var loginSuccess$: Subject<Boolean> = new Subject<Boolean>();
 
-    this.httpClient.get(this.SERVER_URL + 'users').subscribe((users: User[]) => {
+    this.httpClient.get(this.SERVER_URL).subscribe((users: User[]) => {
       var success: Boolean = false;
 
       users.forEach(user => {

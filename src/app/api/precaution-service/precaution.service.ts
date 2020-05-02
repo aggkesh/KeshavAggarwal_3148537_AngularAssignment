@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PrecautionService {
 
-  SERVER_URL: string = "https://my-json-server.typicode.com/aggkesh/KeshavAggarwal_3148537_AngularAssignment/precautions";
+  SERVER_URL: string = "http://localhost:4200/api/precautions";
   
   constructor(private httpClient: HttpClient) {}
 
