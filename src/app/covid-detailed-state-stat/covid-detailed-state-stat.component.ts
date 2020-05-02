@@ -32,11 +32,9 @@ export class CovidDetailedStateStatComponent implements OnInit,OnDestroy {
     subscription.add(this.covidStatService.getCovidStateWiseData().subscribe((covidStateDetailList: CovidStateDetail[]) => {
       covidStateDetailList.forEach(covidStateDetail => {
         if(covidStateDetail.state == this.stateName) {
-          this.covidStateDetail = covidStateDetail;
-          subscription.add(this.covidStatService.getCovidDistrictWiseData(stateName).
-          subscribe((covidDistrictDetailList: Array<CovidDistrictDetail>) => {
-            this.covidStateDetail.districtData = covidDistrictDetailList;
-            console.log(this.covidStateDetail)
+          subscription.add(this.covidStatService.getCovidDistrictWiseData(covidStateDetail).
+          subscribe((covidStateAndDistrictDetail: CovidStateDetail) => {
+            this.covidStateDetail = covidStateAndDistrictDetail;
           }));
         }        
       });

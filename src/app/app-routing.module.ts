@@ -8,11 +8,15 @@ import { AddNewsComponent } from './add-news/add-news.component';
 import { NewsDetailComponent } from './news-detail/news-detail.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { CovidDetailedStateStatComponent } from './covid-detailed-state-stat/covid-detailed-state-stat.component';
+import { ErrorComponent } from './error/error.component';
 
 
 const routes: Routes = [
   {
-    path: '', redirectTo: 'covidtracker', pathMatch: 'full'
+    path: '', redirectTo: 'covidtracker/dashboard', pathMatch: 'full'
+  },
+  {
+    path: 'covidtracker', redirectTo: 'covidtracker/dashboard', pathMatch: 'full'
   },
   {
     path: 'covidtracker', component: HomeComponent , children: [
@@ -38,6 +42,12 @@ const routes: Routes = [
   },
   {
     path: 'covidtracker/statedetail/:statename', component: CovidDetailedStateStatComponent
+  },
+  {
+    path: 'error/:errorcode', component: ErrorComponent
+  },
+  {
+    path: '**', redirectTo: 'error/404'
   }
 ];
 

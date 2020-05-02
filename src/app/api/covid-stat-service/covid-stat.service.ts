@@ -22,10 +22,10 @@ export class CovidStatService {
     return this.httpClient.get<ICovidStateWiseStat>(this.SERVER_STATE_URL).pipe(map(response => response.statewise));
   }
 
-  public getCovidDistrictWiseData(stateName: string) {
+  public getCovidDistrictWiseData(covidStateDetail: CovidStateDetail) {
     return this.httpClient.get(this.SERVER_DISTRICT_URL).pipe(map(response => {
-      if(response.hasOwnProperty(stateName)) {
-        var stateDetail = response[stateName];
+      if(response.hasOwnProperty(covidStateDetail.state)) {
+        var stateDetail = response[covidStateDetail.state];
         if(stateDetail.hasOwnProperty('districtData')) {
           var covidDistrictDetailArray: Array<CovidDistrictDetail> = new Array<CovidDistrictDetail>();
           var obj = stateDetail['districtData'];
@@ -34,7 +34,8 @@ export class CovidStatService {
             covidDistrictDetail.district = key;
             covidDistrictDetailArray.push(covidDistrictDetail);
           }
-          return covidDistrictDetailArray;
+          covidStateDetail.districtData = covidDistrictDetailArray
+          return covidStateDetail;
         }
       }
     }));

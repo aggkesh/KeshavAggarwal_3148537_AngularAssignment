@@ -7,15 +7,14 @@
         </ul>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf=!loggedIn><a (click)="_loadPage('login')"><span class="glyphicon glyphicon-log-in"></span>Sign In</a></li>
-        <li *ngIf=loggedIn><a (click)="_loadPage('addnews')"><span class="glyphicon glyphicon-plus"></span>Add News</a></li>
-        <!-- Dropdown -->
-        <li *ngIf=loggedIn class="nav-item dropdown" dropdown>
+        <li *ngIf=!loggedInState><a (click)="_loadPage('login')"><span class="glyphicon glyphicon-log-in"></span>Sign In</a></li>
+        <li *ngIf=loggedInState><a (click)="_loadPage('addnews')"><span class="glyphicon glyphicon-plus"></span>Add News</a></li>
+        <li *ngIf=loggedInState class="nav-item dropdown" dropdown>
           <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
             <span class="glyphicon glyphicon-user"></span>Profile<span class="caret"></span>
           </a>
           <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-            <div style="padding-top: 10px; padding-left: 20px;padding-bottom: 10px;font-size: 14px;">
+            <div id="logoutrow">
               <a (click)="_logout()">Logout</a>
             </div>
           </div>

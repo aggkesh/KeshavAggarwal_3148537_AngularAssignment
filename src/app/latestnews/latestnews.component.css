@@ -1,22 +1,50 @@
-#latestnews {
+table {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
     margin-right: 10px;
 }
   
-#latestnews td, #latestnews th {
+td, th {
     border: 1px solid #ddd;
     padding: 8px;
 }
   
-#latestnews tr:nth-child(even){background-color: #f2f2f2;}
+tr:nth-child(even){background-color: #f2f2f2;}
 
-#latestnews th {
+th {
     padding-top: 12px;
     padding-bottom: 12px;
     width: auto;
     text-align: left;
     background-color: #4CAF50;
     color: white;
-  }
+}
+
+a {
+    color: green;
+}
+
+#SNO {
+    width: 1%;
+}
+
+#image {
+    height: 25%;
+    width: 25%;
+    text-align: center;
+}
+
+#title {
+    font-size:24px; 
+    font-weight: bold;
+}
+
+#description {
+    color: grey; 
+    font-size: 14px;
+}
+
+div {
+    overflow-x: auto;
+}

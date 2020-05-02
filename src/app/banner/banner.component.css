@@ -1,0 +1,20 @@
+.banner {
+    display: inherit;
+    margin-top: 0px;
+}
+
+#banner-background {
+    background: green;
+    height: 150px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 60px;
+    color: white;
+    padding-top: 20px;
+}
+
+p {
+    font-size: 16px;color:white;
+}

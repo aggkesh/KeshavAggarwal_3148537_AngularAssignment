@@ -1,11 +1,21 @@
-<div class="container" style="border-style: outset;padding: 20px;">
-    <div *ngIf=news style="border-style: double;padding: 20px;background-color:green;">
-      <p style="font-size:50px;font-weight: bolder;color: white;">{{ news.title }}</p>
-      <p style="font-size:18px;font-weight: bold;color: white;">{{ news.description }}</p>
-    </div>
-    <div style="padding: 20px;border-style: groove;background-color:mediumseagreen;">
-      <p *ngIf=news style="color: white;font-size: 15px;">{{ news.summary }}</p>
-    </div>
-    <button *ngIf=admin style="float:right" (click)="_deleteNews()">Delete News</button>
-    <button *ngIf=admin style="float:right" (click)="_editNews()">Edit News</button>
+<div *ngIf="news" class="container">
+  <table>
+    <tr>
+      <td id="header">
+        <p id="title">{{ news.title }}</p>
+        <p id="description">{{ news.description }}</p>
+      </td>
+      <td id="image">
+        <img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="News Image">
+      </td>      
+    </tr>    
+    <tr>
+      <td id="buttontd">
+        <button class="btn btn-default" *ngIf="loggedInAdmin" style="background-color:red;color:white;" (click)="_deleteNews()">Delete News</button>
+      </td>
+    </tr>
+  </table>
+  <div id="summarydiv">
+    <p id="summary">{{ news.summary }}</p>
   </div>
+</div>

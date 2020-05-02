@@ -28,3 +28,9 @@ li.navelement a:hover {
     background-color: seagreen;
     color: white;
 }
+
+hr {
+    margin: 0;
+    width: 75%; 
+    float: left;
+}

@@ -9,15 +9,13 @@ import { Subscription } from 'rxjs';
 })  
 export class NavbarComponent implements OnInit,OnDestroy {
     private subscription: Subscription = new Subscription();
-    loggedIn: Boolean;
+    loggedInState: Boolean;
     title = 'Covid Tracking App';
 
     constructor(private communicationService: CommunicationService){}
 
     ngOnInit() : void {
-        var loggedState = localStorage.getItem('LoggedInAsAdmin');
-        this.loggedIn = loggedState != null && loggedState == "true";
-
+        this.loggedInState = this.getLoggedInState();
         this.addSubscription(this.subscription, this.communicationService);
     }
 
@@ -31,12 +29,17 @@ export class NavbarComponent implements OnInit,OnDestroy {
 
     _logout() {
         localStorage.removeItem('LoggedInAsAdmin');
-        this.loggedIn = false;
+        this.communicationService.updateLoggedInState(false);
+    }
+
+    private getLoggedInState() {
+        var loggedState = localStorage.getItem('LoggedInAsAdmin');
+        return loggedState != null && loggedState == "true";
     }
 
     private addSubscription(subscription: Subscription, communicationService: CommunicationService) {
         subscription.add(communicationService.getLoggedIn().subscribe((loggedInState : Boolean) => {
-            this.loggedIn = loggedInState;
+            this.loggedInState = loggedInState;
         }))
     }
 

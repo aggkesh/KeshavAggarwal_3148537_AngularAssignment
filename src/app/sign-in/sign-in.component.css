@@ -4,7 +4,37 @@ span {
     font-size: 13px;
     font-weight: bold;
 }
+
 input.ng-invalid.ng-touched
 {
     border-color: red;
+}
+
+div.container {
+    border-style: outset; 
+    padding: 3%;
+}
+
+div.form-group {
+    padding-bottom: 2%;
+}
+
+label {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+h1 {
+    padding-bottom: 3%; 
+    font-weight: bold;
+}
+
+p {
+    color:red;
+}
+
+button {
+    width: 150px;
+    height: 40px;
+    font-size: 15px;
 }

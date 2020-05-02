@@ -4,11 +4,39 @@ span {
     font-size: 13px;
     font-weight: bold;
 }
+
 input.ng-invalid.ng-touched
 {
     border-color: red;
 }
+
+#title, #description {
+    height:50px;
+}
+
+#summary {
+    height:170px;
+}
 textarea.ng-invalid.ng-touched
 {
     border-color: red;
+}
+
+h2 {
+    padding-bottom: 2%; 
+    font-weight: bold;
+}
+
+div.container {
+    border-style: outset; 
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+}
+
+button {
+    float: right;
+    width: 150px;
+    height: 40px;
+    font-size: 15px;
 }

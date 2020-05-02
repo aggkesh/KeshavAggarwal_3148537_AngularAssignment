@@ -1,18 +1,18 @@
-<div style="overflow-x:auto;">
-  <table id="latestnews">
+<div *ngIf="newsList">
+  <table>
     <tr>
       <th>SNO</th>
       <th>News Image</th>
       <th>Description</th>
     </tr>
     <tr *ngFor="let news of newsList">
-      <td style="width: 1%;">{{ news.id }}.</td>
-      <td style="height: 25%;width: 25%;text-align: center;"><img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="News Image"></td>
+      <td id="SNO">{{ news.id }}.</td>
+      <td id="image"><img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="News Image"></td>
       <td>
-        <p style="font-size:24px; font-weight: bold;">{{news.title}}</p>
-        <p style="color: grey; font-size: 14px;">
+        <p id="title">{{news.title}}</p>
+        <p id="description">
           {{news.description}} 
-          <a style="color: green" (click)="_more(news.id)">more...</a>
+          <a (click)="_more(news.id)">more...</a>
         </p>
       </td>
     </tr>

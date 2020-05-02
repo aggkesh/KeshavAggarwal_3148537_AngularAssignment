@@ -1,0 +1,52 @@
+div.container {
+    border-style: outset;
+    padding: 20px;
+}
+
+table {
+    border-style: double;background-color:green;width: 100%;
+}
+
+button {
+    width: 100px;
+    height: 40px;
+    font-size: 13px;
+}
+
+#summarydiv {
+    padding: 20px;
+    border-style: groove;
+    background-color: mediumseagreen;
+}
+
+#summary {
+    color: white;
+    font-size: 15px;
+}
+
+#image {
+    width: 15%;
+    padding: 1%;
+}
+
+#buttontd {
+    width: 20%;
+    padding: 1%;
+}
+
+#header {
+    width: 85%;
+    padding: 1%;
+}
+
+#title {
+    font-size: 50px;
+    font-weight: bolder;
+    color: white;
+}
+
+#description {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}

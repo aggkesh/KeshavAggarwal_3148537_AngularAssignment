@@ -1,33 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { News } from '../model/news';
 import { NewsService } from '../api/news-service/news.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CommunicationService } from '../api/communication-service/communication.service';
 
 @Component({
   selector: 'app-news-detail',
   templateUrl: './news-detail.component.html',
   styleUrls: ['./news-detail.component.css']
 })
-export class NewsDetailComponent implements OnInit {
+export class NewsDetailComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
   news: News;
-  admin: Boolean;
-  newsid: string;
+  loggedInAdmin: boolean;
+  private newsid: string;
 
-  constructor(private newsService: NewsService, private activatedroute: ActivatedRoute) {
-    this.newsid = this.activatedroute.snapshot.params.newsid;
+  constructor(private newsService: NewsService, 
+              private route: ActivatedRoute,
+              private router: Router,
+              private communicationService: CommunicationService) {
+    this.newsid = this.route.snapshot.params.newsid;
   }
 
   ngOnInit(): void {
-    this.newsService.getNews(this.newsid).subscribe((news: News) => {
-      console.log(news);
-      this.news = news;
-    })
+    this.loggedInAdmin = this.getloggedInState();
+    this.addSubscription(this.subscription, this.newsService, 
+      this.communicationService, this.newsid)
   }
 
-  _deleteNews() {
+  ngOnDestroy(): void {
+    this.removeSubscription(this.subscription);
   }
 
-  _editNews() {    
+  _deleteNews(): void {
+    this.newsService.deleteNews(this.newsid).subscribe(() =>{
+      this.router.navigate(['covidtracker/latestnews']);
+    });
+  }
+
+  private getloggedInState(): boolean {
+    var loggedState = localStorage.getItem('LoggedInAsAdmin');
+    return loggedState != null && loggedState == "true";
+  }
+  
+  private addSubscription(subscription: Subscription, newsService: NewsService,
+    communicationService: CommunicationService, newsid: String): void {
+      subscription.add(newsService.getNews(newsid).subscribe((news: News) => {
+        this.news = news;
+      }));
+      subscription.add(communicationService.getLoggedIn().subscribe((loggedInState : boolean) => {
+        this.loggedInAdmin = loggedInState;
+      }));
+  }
+
+  private removeSubscription(subscription: Subscription): void {
+     subscription.unsubscribe();
   }
 
 }

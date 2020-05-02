@@ -1,34 +1,35 @@
-<h3 style="font-weight: bold;margin-left: 10px;">State Details</h3>
-<table id="latestnews" style="width: 48%;margin-left: 5px;">
-  <tr>
-    <th>State Properties</th>
-    <th>Data</th>
-  </tr>
-  <tr *ngIf="covidStateDetail">
-    <td>State</td>
-    <td>{{ covidStateDetail.state }}</td>
-  </tr>
-  <tr *ngIf="covidStateDetail">
-    <td>Total Case</td>
-    <td>{{ covidStateDetail.confirmed }}</td>
-  </tr>
-  <tr *ngIf="covidStateDetail">
-    <td>Active Case</td>
-    <td>{{ covidStateDetail.active }}</td>
-  </tr>
-  <tr *ngIf="covidStateDetail">
-    <td>Deaths</td>
-    <td>{{ covidStateDetail.deaths }}</td>
-  </tr>
-  <tr *ngIf="covidStateDetail">
-    <td>Recovered</td>
-    <td>{{ covidStateDetail.recovered }}</td>
-  </tr>
-</table>
-&nbsp;
-<h3 style="font-weight: bold;margin-left: 10px;">District Details</h3>
-<div style="overflow-x:auto;">
-    <table id="latestnews" style="margin-left: 5px;">
+<div *ngIf="covidStateDetail">
+  <h3>State Data</h3>
+  <table id="state">
+    <tr>
+      <th>State Properties</th>
+      <th>Data</th>
+    </tr>
+    <tr>
+      <td>State</td>
+      <td>{{ covidStateDetail.state }}</td>
+    </tr>
+    <tr>
+      <td>Total Case</td>
+      <td>{{ covidStateDetail.confirmed }}</td>
+    </tr>
+    <tr>
+      <td>Active Case</td>
+      <td>{{ covidStateDetail.active }}</td>
+    </tr>
+    <tr>
+      <td>Deaths</td>
+      <td>{{ covidStateDetail.deaths }}</td>
+    </tr>
+    <tr>
+      <td>Recovered</td>
+      <td>{{ covidStateDetail.recovered }}</td>
+    </tr>
+  </table>
+  &nbsp;
+  <h3>District Data</h3>
+  <div id="districtdiv">
+    <table id="district">
       <tr>
         <th>SNO</th>
         <th>District</th>
@@ -47,3 +48,4 @@
       </tr>
     </table> 
   </div>
+</div>

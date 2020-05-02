@@ -13,7 +13,7 @@ import { CommunicationService } from '../api/communication-service/communication
 export class LatestNewsComponent implements OnInit,OnDestroy {
   
   private subscription: Subscription = new Subscription();    
-  newsList : News[] = [];
+  newsList: Array<News>;
 
   constructor(private newsService: NewsService, 
               private communicationService: CommunicationService) {}
@@ -32,7 +32,7 @@ export class LatestNewsComponent implements OnInit,OnDestroy {
 
   private addSubscription(subscription: Subscription, communicationService: CommunicationService, 
                           newsService: NewsService): void {
-    subscription.add(newsService.getAllNews().subscribe((newsList : News[]) => {
+    subscription.add(newsService.getAllNews().subscribe((newsList: Array<News>) => {
       this.newsList = newsList;
     }));
   }

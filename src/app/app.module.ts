@@ -22,6 +22,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { UserService } from './api/user-service/user.service';
 import { CommunicationService } from './api/communication-service/communication.service';
 import { CovidDetailedStateStatComponent } from './covid-detailed-state-stat/covid-detailed-state-stat.component';
+import { ErrorComponent } from './error/error.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { CovidDetailedStateStatComponent } from './covid-detailed-state-stat/cov
     BannerComponent,
     NewsDetailComponent,
     SignInComponent,
-    CovidDetailedStateStatComponent
+    CovidDetailedStateStatComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
