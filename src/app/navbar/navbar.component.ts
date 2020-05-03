@@ -48,13 +48,20 @@ export class NavbarComponent implements OnInit,OnDestroy {
      * 
      * @returns true of the person is logged in false otherwise.
      */
-    getLoggedInState() {
+    getLoggedInState(): boolean {
         var loggedState = localStorage.getItem('LoggedInAsAdmin');
         return loggedState != null && loggedState == "true";
     }
 
+    /**
+     * Add subscription to component
+     * 
+     * @param subscription Subscription 
+     * @param communicationService CommunicationService
+     * @param router Router
+     */
     private addSubscription(subscription: Subscription, communicationService: CommunicationService, 
-                            router: Router) {
+                            router: Router): void {
         subscription.add(communicationService.getLoggedIn().subscribe((loggedInState : Boolean) => {
             this.loggedInState = loggedInState;
         }, errors => {
@@ -62,7 +69,12 @@ export class NavbarComponent implements OnInit,OnDestroy {
         }))
     }
 
-    private removeSubscription(subscription: Subscription) {
+    /**
+     * Remove subscription from component
+     * 
+     * @param subscription Subscription 
+     */
+    private removeSubscription(subscription: Subscription): void {
          subscription.unsubscribe();
     }
 }

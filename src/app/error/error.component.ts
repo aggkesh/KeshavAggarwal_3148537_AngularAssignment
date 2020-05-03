@@ -22,8 +22,9 @@ export class ErrorComponent implements OnInit {  private errorcode: string;
    * Return the error model based on error code
    * 
    * @param errorcode error code for the error
+   * @returns errordetail model based on the given error code
    */
-  getErrorModel(errorcode: string) {
+  getErrorModel(errorcode: string): ErrorDetail {
     var errorDetail = new ErrorDetail();
     
     if(errorcode == "404") {

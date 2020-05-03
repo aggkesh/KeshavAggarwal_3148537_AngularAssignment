@@ -20,7 +20,7 @@ export class LatestNewsComponent implements OnInit,OnDestroy {
               private communicationService: CommunicationService,
               private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.addSubscription(this.subscription, this.communicationService, this.newsService, this.router);
   }
 
@@ -28,10 +28,24 @@ export class LatestNewsComponent implements OnInit,OnDestroy {
     this.removeSubscription(this.subscription);
   }
 
+  /**
+   * Move the user to news detail screen and show news for the
+   * given newsid
+   * 
+   * @param newsId newsId of news to show on next screen
+   */
   _more(newsId: String): void {
     this.communicationService.updateNavigationState('newsdetail/' + newsId)
   }
 
+  /**
+   * Add subscription to component
+   * 
+   * @param subscription Subscription 
+   * @param communicationService CommunicationService
+   * @param newsService NewsService
+   * @param router Router
+   */
   private addSubscription(subscription: Subscription, communicationService: CommunicationService, 
                           newsService: NewsService, router: Router): void {
     subscription.add(newsService.getAllNews().subscribe((newsList: Array<News>) => {
@@ -41,6 +55,11 @@ export class LatestNewsComponent implements OnInit,OnDestroy {
     }));
   }
 
+  /**
+   * Remove subscription from component
+   * 
+   * @param subscription subscription 
+   */
   private removeSubscription(subscription: Subscription): void {
     subscription.unsubscribe();
   }

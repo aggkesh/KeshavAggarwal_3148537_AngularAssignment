@@ -40,10 +40,24 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.removeSubscription(this.subscription);
   }
 
-  _loginIn(user: User) {
+  /**
+   * Make the login request and if sucessful take user to home screen and updated 
+   * logged in state.
+   * 
+   * @param user User Model from form builder
+   */
+  _loginIn(user: User): void {
     this.addSubscription(this.subscription, this.userservice, user, this.router);
   }
   
+  /**
+   * Add subscription to component
+   * 
+   * @param subscription Subscription
+   * @param userService User Service
+   * @param user User model 
+   * @param router Router
+   */
   private addSubscription(subscription: Subscription, userService: UserService, user: User, router: Router): void {
     subscription.add(this.userservice.login(user).subscribe((success: Boolean) => {
       if(success) {
@@ -58,10 +72,18 @@ export class SignInComponent implements OnInit, OnDestroy {
     }));
   }
 
+  /**
+   * Remove subscription from component
+   * 
+   * @param subscription Subscription
+   */
   private removeSubscription(subscription: Subscription): void {
     subscription.unsubscribe();
   }
 
+  /**
+   * account validation message 
+   */
   account_validation_messages = {
     'email': [
       { type: 'required', message: 'Email is required' },

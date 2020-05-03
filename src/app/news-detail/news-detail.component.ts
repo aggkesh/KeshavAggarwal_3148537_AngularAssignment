@@ -25,6 +25,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loggedInAdmin = this.getLoggedInState();
+
     this.addSubscription(this.subscription, this.newsService, 
       this.communicationService, this.newsid, this.router)
   }
@@ -33,17 +34,34 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
     this.removeSubscription(this.subscription);
   }
 
+  /**
+   * Delete the given news and take user to latest news screen
+   */
   _deleteNews(): void {
     this.subscription.add(this.newsService.deleteNews(this.newsid).subscribe(() =>{
       this.router.navigate(['covidtracker/latestnews']);
     }));
   }
 
+  /**
+   * Get the logged in state for the user
+   * 
+   * @returns true if the user is loggedIn false otherwise
+   */
   getLoggedInState(): boolean {
     var loggedState = localStorage.getItem('LoggedInAsAdmin');
     return loggedState != null && loggedState == "true";
   }
-  
+
+  /**
+   * Add subscription to component
+   * 
+   * @param subscription Subscription
+   * @param newsService NewsService
+   * @param communicationService CommunicationService
+   * @param newsid newsid for which we need news detail
+   * @param router Router
+   */
   private addSubscription(subscription: Subscription, newsService: NewsService,
     communicationService: CommunicationService, newsid: String, router: Router): void {
       subscription.add(newsService.getNews(newsid).subscribe((news: News) => {
@@ -58,6 +76,11 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
       }));
   }
 
+  /**
+   * Remove Subscription from component
+   * 
+   * @param subscription Subscription 
+   */
   private removeSubscription(subscription: Subscription): void {
      subscription.unsubscribe();
   }

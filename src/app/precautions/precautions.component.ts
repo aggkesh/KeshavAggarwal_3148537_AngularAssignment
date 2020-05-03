@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./precautions.component.css']
 })
 export class PrecautionsComponent implements OnInit, OnDestroy {
-
   private subscription: Subscription = new Subscription();  
   precautionList: Array<Precaution>;
 
@@ -25,6 +24,13 @@ export class PrecautionsComponent implements OnInit, OnDestroy {
     this.removeSubscription(this.subscription);
   }
 
+  /**
+   * Add subscription to component
+   * 
+   * @param subscription Subscription 
+   * @param precautionService PrecuationService
+   * @param router Router
+   */
   private addSubscription(subscription: Subscription, precautionService: PrecautionService, router: Router): void {
     subscription.add(precautionService.getAllPrecautions().subscribe((precautionList : Array<Precaution>) => {
       this.precautionList = precautionList;
@@ -33,6 +39,11 @@ export class PrecautionsComponent implements OnInit, OnDestroy {
     }));
   }
 
+  /**
+   * Remove subscription from component
+   * 
+   * @param subscription Subscription 
+   */
   private removeSubscription(subscription: Subscription): void {
     subscription.unsubscribe();
   }

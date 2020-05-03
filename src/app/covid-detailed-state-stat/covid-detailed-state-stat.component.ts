@@ -28,6 +28,14 @@ export class CovidDetailedStateStatComponent implements OnInit,OnDestroy {
     this.removeSubscription(this.subscription);
   }
 
+  /**
+   * Add subscription to the component
+   * 
+   * @param subscription subscription
+   * @param covidStatService covidStatService object
+   * @param stateName state name for which district detail need to find out
+   * @param router router 
+   */
   private addSubscription(subscription: Subscription, covidStatService: CovidStatService, 
                           stateName: string, router: Router): void {
     subscription.add(this.covidStatService.getCovidStateWiseData().subscribe((covidStateDetailList: Array<CovidStateDetail>) => {
@@ -49,10 +57,22 @@ export class CovidDetailedStateStatComponent implements OnInit,OnDestroy {
     }));
   }
 
+  /**
+   * Remove subscription from component
+   * 
+   * @param subscription subscription
+   */
   private removeSubscription(subscription: Subscription): void {
     subscription.unsubscribe(); 
   }
 
+  /**
+   * Method find the covid stats for the state with given state name
+   * 
+   * @param covidStateDetailList covid State list containing details about covid stat for states
+   * @param stateName state name for which we need covid stats from the method
+   * @returns covid state detail if we have state with given state name in the list, null otherwise
+   */
   findCovidStateDetail(covidStateDetailList: Array<CovidStateDetail>, 
                                 stateName: string): CovidStateDetail {
     for(var index = 0;index < covidStateDetailList.length; index++) {

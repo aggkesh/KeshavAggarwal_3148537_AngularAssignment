@@ -22,6 +22,7 @@ export class AddNewsComponent implements OnInit, OnDestroy {
 
   ngOnInit() : void {
     
+    //check before adding news that user is loggedIn as admin
     if(!this.getLoggedInState()) {
       this.moveToErrorScreen("401", this.router);
     }
@@ -42,7 +43,12 @@ export class AddNewsComponent implements OnInit, OnDestroy {
     this.removeSubscription(this.subscription);
   }
 
-  _saveNews(news: News) {
+  /**
+   * Save the news 
+   * 
+   * @param news news object from the form builder
+   */
+  _saveNews(news: News) : void {
     this.addSubscription(this.subscription,this.newsService, news, this.router, this.errors);
   }
 
@@ -65,6 +71,15 @@ export class AddNewsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * add Subscription to the component
+   * 
+   * @param subscription Subscritpion
+   * @param newsService NewsService
+   * @param news news model 
+   * @param router router 
+   * @param errors errors array string if any
+   */
   private addSubscription(subscription: Subscription, newsService: NewsService, 
                           news: News, router: Router, errors: Array<string>): void {
     subscription.add(newsService.createNews(news).subscribe((newsData:any) => {
@@ -74,15 +89,29 @@ export class AddNewsComponent implements OnInit, OnDestroy {
     }));
   }
 
+  /**
+   * remove subscription from component
+   * 
+   * @param subscription subscription object
+   */
   private removeSubscription(subscription: Subscription): void {
     subscription.unsubscribe(); 
   }
 
+  /**
+   * Get the Logged In State whehter user is loggedIn or not.
+   */
   private getLoggedInState() {
     var loggedState = localStorage.getItem('LoggedInAsAdmin');
     return loggedState != null && loggedState == "true";
   }
 
+  /**
+   * Method move to error screen with given error code  
+   * 
+   * @param errorStatusCode error code 
+   * @param router router
+   */
   private moveToErrorScreen(errorStatusCode: string, router: Router) {
     router.navigate(['error/'+errorStatusCode]);
   }
