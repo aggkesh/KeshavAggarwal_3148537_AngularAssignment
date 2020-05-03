@@ -24,9 +24,17 @@ button {
     font-size: 15px;
 }
 
-#image {
-    width: 15%;
-    padding: 1%;
+#imagetd {
+    width: 200px;
+    max-height: 200px;
+}
+
+#image{
+    width: 250px;
+    max-height: 250px;
+    padding-bottom: 4%;
+    padding-top: 4%;
+    padding-right: 4%;
 }
 
 #buttontd {

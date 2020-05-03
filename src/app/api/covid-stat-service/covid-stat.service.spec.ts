@@ -35,7 +35,7 @@ fdescribe('CovidStatService', () => {
 
     expect(request.request.method).toBe('GET');
     
-    request.flush(dummyCovidStateDetails);
+    request.flush({"statewise": dummyCovidStateDetails});
   });
 
   it('should retrive CovidDistrictWiseDetail from the API via GET', () => {

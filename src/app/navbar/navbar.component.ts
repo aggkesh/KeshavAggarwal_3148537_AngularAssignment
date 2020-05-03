@@ -25,16 +25,30 @@ export class NavbarComponent implements OnInit,OnDestroy {
         this.removeSubscription(this.subscription);
     }
 
+    /**
+     * Method load the page with given page name.
+     * 
+     * @param pageName page name to loaded 
+     */
     _loadPage(pageName: string) {
         this.communicationService.updateNavigationState(pageName);
     }
 
-    _logout() {
+    /**
+     * Called when the user press logout method clean out the local
+     * storage for the logged in state of the user and make him logged out.
+     */
+    _logout(): void {
         localStorage.removeItem('LoggedInAsAdmin');
         this.communicationService.updateLoggedInState(false);
     }
 
-    private getLoggedInState() {
+    /**
+     * Get whether the person is loggedIn or not based on local storage value
+     * 
+     * @returns true of the person is logged in false otherwise.
+     */
+    getLoggedInState() {
         var loggedState = localStorage.getItem('LoggedInAsAdmin');
         return loggedState != null && loggedState == "true";
     }

@@ -7,7 +7,7 @@
     </tr>
     <tr *ngFor="let news of newsList">
       <td id="SNO">{{ news.id }}.</td>
-      <td id="image"><img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="News Image"></td>
+      <td id="imagetd"><img id="image" [src]="news.image" alt="News Image"></td>
       <td>
         <p id="title">{{news.title}}</p>
         <p id="description">

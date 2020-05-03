@@ -51,7 +51,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         this.router.navigate([''], {relativeTo: this.route});
         this.communicationService.updateLoggedInState(true)
       } else{
-        router.navigate(['error/401']);
+        this.errors = "username or password is not valid.";
       }
     }, errors => {
       router.navigate(['error/'+errors.status]);

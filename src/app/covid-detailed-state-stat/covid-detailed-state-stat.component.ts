@@ -12,7 +12,7 @@ import { CovidStateDetail } from '../model/covidstatedetail';
 export class CovidDetailedStateStatComponent implements OnInit,OnDestroy {
   private subscription: Subscription = new Subscription();
   covidStateDetail: CovidStateDetail;
-  private stateName: string;
+  stateName: string;
 
   constructor(private activatedroute: ActivatedRoute
             , private covidStatService: CovidStatService
@@ -53,10 +53,10 @@ export class CovidDetailedStateStatComponent implements OnInit,OnDestroy {
     subscription.unsubscribe(); 
   }
 
-  private findCovidStateDetail(covidStateDetailList: Array<CovidStateDetail>, 
+  findCovidStateDetail(covidStateDetailList: Array<CovidStateDetail>, 
                                 stateName: string): CovidStateDetail {
     for(var index = 0;index < covidStateDetailList.length; index++) {
-      if(covidStateDetailList[index].state == this.stateName) {
+      if(covidStateDetailList[index].state == stateName) {
         return covidStateDetailList[index];
       }
 

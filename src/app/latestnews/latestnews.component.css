@@ -29,10 +29,14 @@ a {
     width: 1%;
 }
 
-#image {
-    height: 25%;
+#imagetd {
     width: 25%;
     text-align: center;
+}
+
+#image {
+    height: 170px;
+    width: 100%;
 }
 
 #title {

@@ -14,7 +14,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   news: News;
   loggedInAdmin: boolean;
-  private newsid: string;
+  newsid: string;
 
   constructor(private newsService: NewsService, 
               private route: ActivatedRoute,
@@ -24,7 +24,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loggedInAdmin = this.getloggedInState();
+    this.loggedInAdmin = this.getLoggedInState();
     this.addSubscription(this.subscription, this.newsService, 
       this.communicationService, this.newsid, this.router)
   }
@@ -34,12 +34,12 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
   }
 
   _deleteNews(): void {
-    this.newsService.deleteNews(this.newsid).subscribe(() =>{
+    this.subscription.add(this.newsService.deleteNews(this.newsid).subscribe(() =>{
       this.router.navigate(['covidtracker/latestnews']);
-    });
+    }));
   }
 
-  private getloggedInState(): boolean {
+  getLoggedInState(): boolean {
     var loggedState = localStorage.getItem('LoggedInAsAdmin');
     return loggedState != null && loggedState == "true";
   }

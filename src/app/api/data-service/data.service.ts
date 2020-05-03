@@ -17,7 +17,7 @@ export class DataService implements InMemoryDbService {
   createDb() {
 
     let news =  [
-      {  id:  1, title: 'News1', description: 'News 1', summary: "Summary 1" }
+      {  id:  1, title: 'Coronavirus live updates', description: 'Rise in coronavirus cases in India expected to stabilise soon', summary: "Total Covid-19 cases in India have risen to 39,980, as per the latest update by the Union health ministry. Over 1,300 people have died due to the virus across the country while the global toll from Covid-19 is nearing 3,50,000. The lockdown in India has been extended till March 17.", image: 'assets/img/Covid-News-Image.jpg' }
     ];
 
      let users = [
