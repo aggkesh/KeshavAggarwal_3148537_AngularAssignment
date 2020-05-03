@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CovidStatService } from '../api/covid-stat-service/covid-stat.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CovidStateDetail } from '../model/covidstatedetail';
-import { CovidDistrictDetail } from '../model/coviddistrictdetail';
 
 @Component({
   selector: 'app-covid-detailed-state-stat',
@@ -16,28 +15,37 @@ export class CovidDetailedStateStatComponent implements OnInit,OnDestroy {
   private stateName: string;
 
   constructor(private activatedroute: ActivatedRoute
-            , private covidStatService: CovidStatService) {
+            , private covidStatService: CovidStatService
+            , private router: Router) {
     this.stateName = this.activatedroute.snapshot.params.statename;
   }
 
   ngOnInit(): void {
-    this.addSubscription(this.subscription, this.covidStatService, this.stateName);
+    this.addSubscription(this.subscription, this.covidStatService, this.stateName, this.router);
   }
 
   ngOnDestroy(): void {
     this.removeSubscription(this.subscription);
   }
 
-  private addSubscription(subscription: Subscription, covidStatService: CovidStatService, stateName: string): void {
-    subscription.add(this.covidStatService.getCovidStateWiseData().subscribe((covidStateDetailList: CovidStateDetail[]) => {
-      covidStateDetailList.forEach(covidStateDetail => {
-        if(covidStateDetail.state == this.stateName) {
-          subscription.add(this.covidStatService.getCovidDistrictWiseData(covidStateDetail).
-          subscribe((covidStateAndDistrictDetail: CovidStateDetail) => {
-            this.covidStateDetail = covidStateAndDistrictDetail;
-          }));
-        }        
-      });
+  private addSubscription(subscription: Subscription, covidStatService: CovidStatService, 
+                          stateName: string, router: Router): void {
+    subscription.add(this.covidStatService.getCovidStateWiseData().subscribe((covidStateDetailList: Array<CovidStateDetail>) => {
+
+      var stateDetail = this.findCovidStateDetail(covidStateDetailList, stateName);
+
+      if(stateDetail != null) {
+        subscription.add(this.covidStatService.getCovidDistrictWiseData(stateDetail)
+                    .subscribe((covidStateAndDistrictDetail: CovidStateDetail) => {
+          this.covidStateDetail = covidStateAndDistrictDetail;
+        }, errors => {
+          router.navigate(['error/'+errors.status]);          
+        }));
+      } else {
+        router.navigate(['error/404']);        
+      }     
+    }, errors => {
+      router.navigate(['error/'+errors.status]);
     }));
   }
 
@@ -45,4 +53,14 @@ export class CovidDetailedStateStatComponent implements OnInit,OnDestroy {
     subscription.unsubscribe(); 
   }
 
+  private findCovidStateDetail(covidStateDetailList: Array<CovidStateDetail>, 
+                                stateName: string): CovidStateDetail {
+    for(var index = 0;index < covidStateDetailList.length; index++) {
+      if(covidStateDetailList[index].state == this.stateName) {
+        return covidStateDetailList[index];
+      }
+
+    }
+    return null;
+  }
 }

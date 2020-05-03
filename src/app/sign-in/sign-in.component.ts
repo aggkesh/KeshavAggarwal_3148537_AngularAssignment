@@ -15,16 +15,11 @@ export class SignInComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription()
   loginFormGroup: FormGroup;
   errors: any;
-  
+
   constructor(private userservice: UserService,
               private communicationService: CommunicationService, 
               private route: ActivatedRoute, 
               private router: Router) {}
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
 
   ngOnInit() {
     this.loginFormGroup = new FormGroup({
@@ -41,18 +36,32 @@ export class SignInComponent implements OnInit, OnDestroy {
      });
   }
 
-  _loginIn(user: User) {
-    this.subscription.add(this.userservice.login(user).subscribe((success: Boolean) => {
-        if(success) {
-          localStorage.setItem('LoggedInAsAdmin', "true")
-          this.router.navigate([''], {relativeTo: this.route});
-          this.communicationService.updateLoggedInState(true)
-        } else{
+  ngOnDestroy(): void {
+    this.removeSubscription(this.subscription);
+  }
 
-        }
-    }));
+  _loginIn(user: User) {
+    this.addSubscription(this.subscription, this.userservice, user, this.router);
   }
   
+  private addSubscription(subscription: Subscription, userService: UserService, user: User, router: Router): void {
+    subscription.add(this.userservice.login(user).subscribe((success: Boolean) => {
+      if(success) {
+        localStorage.setItem('LoggedInAsAdmin', "true")
+        this.router.navigate([''], {relativeTo: this.route});
+        this.communicationService.updateLoggedInState(true)
+      } else{
+        router.navigate(['error/401']);
+      }
+    }, errors => {
+      router.navigate(['error/'+errors.status]);
+    }));
+  }
+
+  private removeSubscription(subscription: Subscription): void {
+    subscription.unsubscribe();
+  }
+
   account_validation_messages = {
     'email': [
       { type: 'required', message: 'Email is required' },

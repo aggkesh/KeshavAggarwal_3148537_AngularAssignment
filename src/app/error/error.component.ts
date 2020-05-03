@@ -18,7 +18,12 @@ export class ErrorComponent implements OnInit {  private errorcode: string;
     this.errorDetail = this.getErrorModel(this.errorcode);
   }
 
-  private getErrorModel(errorcode: string) {
+  /**
+   * Return the error model based on error code
+   * 
+   * @param errorcode error code for the error
+   */
+  getErrorModel(errorcode: string) {
     var errorDetail = new ErrorDetail();
     
     if(errorcode == "404") {
@@ -33,6 +38,10 @@ export class ErrorComponent implements OnInit {  private errorcode: string;
       errorDetail.statuscode = "401";
       errorDetail.title = "Unauthorized.";
       errorDetail.description = "Not Authorized To Access page"
+    } else if(errorcode == "0"){
+      errorDetail.statuscode = "500";
+      errorDetail.title = "Internal Server Error.";
+      errorDetail.description = "Http Failure Could Not Reach Web Page"
     } else {
       errorDetail.statuscode = "404";
       errorDetail.title = "PAGE NOT FOUND.";

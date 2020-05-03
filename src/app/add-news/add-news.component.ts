@@ -23,7 +23,7 @@ export class AddNewsComponent implements OnInit, OnDestroy {
   ngOnInit() : void {
     
     if(!this.getLoggedInState()) {
-      this.router.navigate(['error/401']);
+      this.moveToErrorScreen("401", this.router);
     }
 
     this.newsDetailsForm = new FormGroup({
@@ -70,29 +70,7 @@ export class AddNewsComponent implements OnInit, OnDestroy {
     subscription.add(newsService.createNews(news).subscribe((newsData:any) => {
       router.navigate(['covidtracker/latestnews']);
     },errors => {
-      console.log(errors);
-      if(errors.status == 404){
-        errors.push("Page Not Found");
-      }
-      else{
-        let err = errors.error.errors;
-
-        if(err != null && err.title != null){
-          for(var index = 0;index < err.title.length;index++){
-            this.errors.push("title field "+err.title[index]);
-          }
-        }
-        if(err != null && err.description != null){
-          for(var index = 0;index < err.description.length;index++){
-            this.errors.push("description field "+err.description[index]);
-          }
-        }
-        if(err != null && err.body != null){
-          for(var index = 0;index < err.body.length;index++){
-            this.errors.push("body field "+err.body[index]);
-          }
-        }
-      }
+      this.moveToErrorScreen(errors.status, router);
     }));
   }
 
@@ -103,6 +81,10 @@ export class AddNewsComponent implements OnInit, OnDestroy {
   private getLoggedInState() {
     var loggedState = localStorage.getItem('LoggedInAsAdmin');
     return loggedState != null && loggedState == "true";
+  }
+
+  private moveToErrorScreen(errorStatusCode: string, router: Router) {
+    router.navigate(['error/'+errorStatusCode]);
   }
 
   /**

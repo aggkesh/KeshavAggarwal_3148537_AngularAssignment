@@ -12,6 +12,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * Move to the page with given page name
+   * 
+   * @param pageName page name where the router should move.
+   */
   _moveToPage(pageName){
     this.router.navigate([pageName], {relativeTo: this.route});
   }

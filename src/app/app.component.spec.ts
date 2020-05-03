@@ -1,35 +1,54 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { Router } from '@angular/router';
+import { CommunicationService } from './api/communication-service/communication.service';
+import { NavbarComponent } from './navbar/navbar.component';
 
-describe('AppComponent', () => {
+fdescribe('AppComponent', () => {
+  let component: AppComponent;
+  let navbarComponent: NavbarComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let service: CommunicationService;
+  let router = {
+    navigate: jasmine.createSpy('navigate')
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent, NavbarComponent
       ],
+      providers: [
+        { provide: Router, useValue: router },
+        CommunicationService
+      ]
     }).compileComponents();
   }));
 
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    navbarComponent = TestBed.createComponent(NavbarComponent).componentInstance;
+    service = TestBed.get(CommunicationService);
+  });
+
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(navbarComponent).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'covidTrackingApp'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('covidTrackingApp');
+  it('should navigate to correct page returned by Communication Service', () => {
+    component.ngOnInit();
+
+    service.updateNavigationState('login')
+    expect(router.navigate).toHaveBeenCalledWith(['covidtracker/login']);
+
+    service.updateNavigationState('home')
+    expect(router.navigate).toHaveBeenCalledWith(['covidtracker/home']);
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('covidTrackingApp app is running!');
-  });
 });

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { News } from 'src/app/model/news';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +12,43 @@ export class NewsService {
   
   constructor(private httpClient: HttpClient) { }
 
-  public getAllNews() { 
-       return this.httpClient.get(this.SERVER_URL);      
+  /**
+   * Get All the News save in DB.
+   * 
+   * @returns all news present in db
+   */
+  public getAllNews(): Observable<Array<News>> { 
+       return this.httpClient.get<Array<News>>(this.SERVER_URL);      
   }
 
-  public getNews(newsId : String) {
-       return this.httpClient.get(`${this.SERVER_URL}/${newsId}`); 
+  /**
+   * Get the news with given news id in db.
+   * 
+   * @param newsId news id of the news to get from db.
+   * @returns news with given news id
+   */
+  public getNews(newsId : String): Observable<News> {
+       return this.httpClient.get<News>(`${this.SERVER_URL}/${newsId}`); 
   }
   
-  public createNews(news : News) {
-      return this.httpClient.post(`${this.SERVER_URL}`, news)
+  /**
+   * Save the given news in db
+   * 
+   * @param news news object to be saved in db
+   * @returns news object that has been save in db.
+   */
+  public createNews(news : News): Observable<News> {
+      return this.httpClient.post<News>(`${this.SERVER_URL}`, news)
   }
 
-  public deleteNews(newsId : String) {
-      return this.httpClient.delete(`${this.SERVER_URL}/${newsId}`)
-  }
-
-  public updatePolicy(news : News) {
-      return this.httpClient.put(`${this.SERVER_URL}/${news.id}`, news)
+  /**
+   * Delete the news in db for the given news id
+   * 
+   * @param newsId news id to be deleted
+   * @returns news which is deleted for current id
+   */
+  public deleteNews(newsId : String): Observable<News> {
+      return this.httpClient.delete<News>(`${this.SERVER_URL}/${newsId}`)
   }
 
 }

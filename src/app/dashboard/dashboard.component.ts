@@ -4,6 +4,7 @@ import { CovidStateDetail } from '../model/covidstatedetail';
 import { CovidDistrictDetail } from '../model/coviddistrictdetail';
 import { CommunicationService } from '../api/communication-service/communication.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +16,11 @@ export class DashboardComponent implements OnInit,OnDestroy {
   covidStateDetailList: CovidStateDetail[] = []
 
   constructor(private covidStatService: CovidStatService, 
-              private communicationService: CommunicationService) {}
+              private communicationService: CommunicationService,
+              private router: Router) {}
 
   ngOnInit() {
-    this.addSubscription(this.subscription, this.covidStatService);
+    this.addSubscription(this.subscription, this.covidStatService, this.router);
   }
 
   ngOnDestroy(): void {
@@ -29,9 +31,11 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.communicationService.updateNavigationState('statedetail/' + stateName)
   }
 
-  private addSubscription(subscription: Subscription, covidStatService: CovidStatService): void {
+  private addSubscription(subscription: Subscription, covidStatService: CovidStatService, router: Router): void {
     subscription.add(this.covidStatService.getCovidStateWiseData().subscribe((covidStateDetailList: CovidStateDetail[]) => {
       this.covidStateDetailList = covidStateDetailList;
+    },errors => {
+      router.navigate(['error/'+errors.status]);
     }));
   }
 

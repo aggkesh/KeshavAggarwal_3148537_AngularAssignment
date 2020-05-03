@@ -14,19 +14,33 @@ export class AppComponent implements OnInit,OnDestroy {
   constructor(private router: Router,private communicationService: CommunicationService) {}
 
   ngOnInit() : void {
-    this.addSubscription(this.subscription, this.communicationService);
+    this.addSubscription(this.subscription, this.communicationService, this.router);
   }
   
   ngOnDestroy(): void {
     this.removeSubscription(this.subscription);
   }
 
-  private addSubscription(subscription: Subscription, communicationService: CommunicationService): void {
+  /**
+   * Add Subsription in App Component and navigate to page returned by Communication Service.
+   * 
+   * @param subscription subscription object
+   * @param communicationService communication service object 
+   * @param router router that navigate to the page returned by communication service
+   */
+  private addSubscription(subscription: Subscription, communicationService: CommunicationService, router: Router): void {
     subscription.add(communicationService.getNavigateState().subscribe((pageName: String) => {
-      this.router.navigate(['covidtracker/' + pageName]);
+      router.navigate(['covidtracker/' + pageName]);
+    }, errors => {
+      router.navigate(['error/'+errors.status]);
     }));
   }
 
+  /**
+   * Unsubscribe from the subscription 
+   *  
+   * @param subscription subscription object
+   */
   private removeSubscription(subscription: Subscription): void {
      subscription.unsubscribe();
   }

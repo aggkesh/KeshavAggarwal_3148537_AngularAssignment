@@ -26,7 +26,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loggedInAdmin = this.getloggedInState();
     this.addSubscription(this.subscription, this.newsService, 
-      this.communicationService, this.newsid)
+      this.communicationService, this.newsid, this.router)
   }
 
   ngOnDestroy(): void {
@@ -45,12 +45,16 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
   }
   
   private addSubscription(subscription: Subscription, newsService: NewsService,
-    communicationService: CommunicationService, newsid: String): void {
+    communicationService: CommunicationService, newsid: String, router: Router): void {
       subscription.add(newsService.getNews(newsid).subscribe((news: News) => {
         this.news = news;
+      }, errors => {
+        router.navigate(['error/'+errors.status]);
       }));
       subscription.add(communicationService.getLoggedIn().subscribe((loggedInState : boolean) => {
         this.loggedInAdmin = loggedInState;
+      }, errors => {
+        router.navigate(['error/'+errors.status]);
       }));
   }
 

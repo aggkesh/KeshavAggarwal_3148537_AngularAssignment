@@ -8,11 +8,17 @@ import { Observable, Subject, Observer } from 'rxjs';
 })
 export class UserService {
 
-  private SERVER_URL: string = "http://localhost:4200/api/users";
+  SERVER_URL: string = "http://localhost:4200/api/users";
   
   constructor(private httpClient: HttpClient) {}
 
-  public login(userData: User) {
+  /**
+   * Get if the user is logged in or not.
+   * 
+   * @param userData userData to check the match user login detail
+   * @returns true if the user is logged in false otherwise
+   */
+  public login(userData: User): Observable<Boolean> {
 
     var loginSuccess$: Subject<Boolean> = new Subject<Boolean>();
 

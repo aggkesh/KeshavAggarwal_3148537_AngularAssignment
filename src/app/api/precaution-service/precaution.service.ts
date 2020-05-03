@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Precaution } from 'src/app/model/precaution';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,13 @@ export class PrecautionService {
   
   constructor(private httpClient: HttpClient) {}
 
-  public getAllPrecautions() { 
-       return this.httpClient.get(this.SERVER_URL);      
+  /**
+   * Get All the precautions present in db.
+   * 
+   * @returns precautions present in db.
+   */
+  public getAllPrecautions(): Observable<Array<Precaution>> { 
+       return this.httpClient.get<Array<Precaution>>(this.SERVER_URL);      
   }
  
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Precaution } from '../model/precaution';
 import { PrecautionService } from '../api/precaution-service/precaution.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-precautions',
@@ -13,19 +14,22 @@ export class PrecautionsComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();  
   precautionList: Array<Precaution>;
 
-  constructor(private precautionService: PrecautionService) {}
+  constructor(private precautionService: PrecautionService,
+              private router: Router) {}
 
   ngOnInit(): void {
-    this.addSubscription(this.subscription, this.precautionService);
+    this.addSubscription(this.subscription, this.precautionService, this.router);
   }
 
   ngOnDestroy(): void {
     this.removeSubscription(this.subscription);
   }
 
-  private addSubscription(subscription: Subscription, precautionService: PrecautionService): void {
+  private addSubscription(subscription: Subscription, precautionService: PrecautionService, router: Router): void {
     subscription.add(precautionService.getAllPrecautions().subscribe((precautionList : Array<Precaution>) => {
       this.precautionList = precautionList;
+    }, errors => {
+      router.navigate(['error/'+errors.status]);
     }));
   }
 

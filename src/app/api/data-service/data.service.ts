@@ -9,10 +9,15 @@ export class DataService implements InMemoryDbService {
 
   constructor() { }
 
+  /**
+   * creates the databaseused by covid tracker. 
+   * 
+   * @return the tables used in app 
+   */
   createDb() {
 
     let news =  [
-      {  id:  1, title: 'News1', description: 'Insurance policy number PO1 askdj flkajsldfj alksjdfkla sjflkjsadf lkjasdkf jalksddjf klsadj flkasd jfklasdjf lkasdjjfkl jasjdlkf jasldkjj fkjasd ndflk asdjflka sjflkjas dlfknj asdlkfj slkfjasl kdsjflk dadjfl kdsadjjfl kadsdjfl kadjflkad ssdjfl kasdjflk asdjfkl asjdlkfj adsdsljf ', summary: "Summary 1" }
+      {  id:  1, title: 'News1', description: 'News 1', summary: "Summary 1" }
     ];
 
      let users = [
@@ -35,6 +40,11 @@ export class DataService implements InMemoryDbService {
      return {news, users, precautions};
   }
 
+  /**
+   * Generate Unique Id for the given news db
+   * 
+   * @param news list of news already in db
+   */
   genId(news: News[]): number {
     return news.length > 0 ? Math.max(...news.map(news => news.id)) + 1 : 1;
   }
